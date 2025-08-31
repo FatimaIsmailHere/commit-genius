@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit Genius - Web App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #121212;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #367c39;
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #333;
+            background-color: #222;
+        }
+
+        .examples {
+            margin-top: 20px;
+        }
+
+        .good {
+            color: #4CAF50;
+        }
+
+        .bad {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Commit Genius</h1>
+        <p>Generate perfect Git commit messages following the Conventional Commits standard.</p>
+
+        <form id="commit-form">
+            <label for="commit-type">Commit Type:</label>
+            <select id="commit-type" name="commit-type">
+                <option value="feat">feat: A new feature</option>
+                <option value="fix">fix: A bug fix</option>
+                <option value="docs">docs: Documentation changes</option>
+                <option value="style">style: Code style changes (formatting, etc.)</option>
+                <option value="refactor">refactor: Code refactoring</option>
+                <option value="test">test: Adding or modifying tests</option>
+                <option value="chore">chore: Other changes (build process, tooling, etc.)</option>
+            </select>
+
+            <label for="commit-description">Description:</label>
+            <textarea id="commit-description" name="commit-description" rows="4"></textarea>
+
+            <label for="issue-number">Issue Number (optional):</label>
+            <input type="text" id="issue-number" name="issue-number">
+
+            <label for="breaking-change">Breaking Change:</label>
+            <input type="checkbox" id="breaking-change" name="breaking-change">
+
+            <button type="button" id="generate-button">Generate Commit Message</button>
+        </form>
+
+        <div class="preview">
+            <h2>Commit Message Preview:</h2>
+            <pre id="commit-preview"><code></code></pre>
+            <button type="button" id="copy-button">Copy to Clipboard</button>
+        </div>
+
+        <div class="examples">
+            <h2>Examples:</h2>
+            <p class="good">Good: <code>feat(auth): Implement user authentication</code></p>
+            <p class="bad">Bad: <code>Fixed login</code></p>
+        </div>
+    </div>
+
+    <script>
+        const commitTypeSelect = document.getElementById('commit-type');
+        const commitDescriptionTextarea = document.getElementById('commit-description');
+        const issueNumberInput = document.getElementById('issue-number');
+        const breakingChangeCheckbox = document.getElementById('breaking-change');
+        const generateButton = document.getElementById('generate-button');
+        const commitPreviewPre = document.getElementById('commit-preview');
+        const copyButton = document.getElementById('copy-button');
+
+        generateButton.addEventListener('click', () => {
+            const commitType = commitTypeSelect.value;
+            const commitDescription = commitDescriptionTextarea.value;
+            const issueNumber = issueNumberInput.value;
+            const breakingChange = breakingChangeCheckbox.checked;
+
+            let commitMessage = `${commitType}: ${commitDescription}`;
+
+            if (issueNumber) {
+                commitMessage += ` #${issueNumber}`;
+            }
+
+            if (breakingChange) {
+                commitMessage += ` BREAKING CHANGE:`;
+            }
+
+            commitPreviewPre.textContent = commitMessage;
+        });
+
+        copyButton.addEventListener('click', () => {
+            const commitMessage = commitPreviewPre.textContent;
+            navigator.clipboard.writeText(commitMessage)
+                .then(() => alert('Commit message copied to clipboard!'))
+                .catch(err => console.error('Could not copy text: ', err));
+        });
+    </script>
+</body>
+</html>

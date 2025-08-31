@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Commit Genius",
+  "version": "1.0",
+  "description": "Generate perfect Git commit messages following the Conventional Commits standard.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Commit Genius"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ]
+}

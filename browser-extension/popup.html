@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit Genius - Popup</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Commit Genius</h1>
+        <p>Generate perfect Git commit messages.</p>
+
+        <form id="commit-form">
+            <label for="commit-type">Commit Type:</label>
+            <select id="commit-type" name="commit-type">
+                <option value="feat">feat: A new feature</option>
+                <option value="fix">fix: A bug fix</option>
+                <option value="docs">docs: Documentation changes</option>
+                <option value="style">style: Code style changes</option>
+                <option value="refactor">refactor: Code refactoring</option>
+                <option value="test">test: Adding or modifying tests</option>
+                <option value="chore">chore: Other changes</option>
+            </select>
+
+            <label for="commit-description">Description:</label>
+            <textarea id="commit-description" name="commit-description" rows="4"></textarea>
+
+            <label for="issue-number">Issue Number (optional):</label>
+            <input type="text" id="issue-number" name="issue-number">
+
+            <label for="breaking-change">Breaking Change:</label>
+            <input type="checkbox" id="breaking-change" name="breaking-change">
+
+            <button type="button" id="generate-button">Generate Commit Message</button>
+        </form>
+
+        <div class="preview">
+            <h2>Commit Message Preview:</h2>
+            <pre id="commit-preview"><code></code></pre>
+            <button type="button" id="copy-button">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
